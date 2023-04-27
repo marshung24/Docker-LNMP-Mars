@@ -1,11 +1,53 @@
-# Docker-LNMP-Mars
-Docker LNMP 環境整理 By Mars
+# Docker-LNMP
+Docker LNMP 環境
+
+> - Author: MarsHung
+> - Date: 2021-12-25
 
 ## 說明
+- 建立LNMP開發環境範本-MacOS版，供開發&測試應用
 
-- 執行`docker-compose up`
+## 檔案結構
+- code_data
+  - index.php
+- config
+  - nginx
+    - nginx.conf
+  - php7.4
+    - Dockerfile
+    - php.ini
+- .env
+- docker-compose-mac.yaml
+- docker-compose.yaml
+- README.md
+
+## 關命令
+
+- 建構
+  - `docker-compose up -d`
+  - 指定設定檔: `docker-compose -f docker-compose-mac.yaml up -d`
+- 移除
+  - `docker-compose down`
+- 開啟
+  - `docker-compose start`
+- 關閉
+  - `docker-compose stop`
+- 查看容器
+  - 執行中容器 `docker container list`
+  - 所有容器 `docker container list -a`
+- 進入容器 dev_php
+  - `docker exec -ti dev_php sh`
+
+## 瀏覽
 - 前往[http://localhost](http://localhost)
-- 網頁程式根目錄在/app，將要執行的網頁放在這邊即可
+
+## 開發
+- 網頁程式根目錄在 ./code_data ，將要執行的網頁放在這邊即可
+
+
+
+
+
 
 
 ## 參考資料

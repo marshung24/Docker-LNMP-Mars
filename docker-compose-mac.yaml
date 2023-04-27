@@ -53,8 +53,8 @@ services:
   dev_mysql:
     container_name: dev_mysql
     image: "mysql:5.7.36"
-    # # Mac M1 platform setting
-    # platform: linux/amd64
+    # Mac M1 platform setting
+    platform: linux/amd64
     restart: always
     volumes:
       - "sql_data:/var/lib/mysql"
