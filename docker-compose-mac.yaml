@@ -1,3 +1,15 @@
+##################################################
+# LNMP伺服器群組設定
+# 
+# - 伺服器： Nginx, PHP7.4, MySQL5.7, Redis, PHPMyAdmin, PHPRedisAdmin
+#   - 主程式: http://localhost
+#   - PHPMyAdmin: http://localhost:8080
+#   - PHPRedisAdmin: http://localhost:8081
+# - 使用 .env 環境變數檔
+#   - 可調整 程式碼路徑 CODE_PATH 變數，以變更連結的程式碼路徑
+# 
+##################################################
+
 # Docker Compose版本
 version: "3"
 
@@ -16,7 +28,7 @@ services:
       - "80:80"
     # 磁區對映
     volumes:
-      - "./code_data:/var/www/html:ro"
+      - "${CODE_PATH}:/var/www/html:ro"
       - "./config/nginx/nginx.conf:/etc/nginx/conf.d/default.conf"
     # 網路設定
     networks:
@@ -40,7 +52,7 @@ services:
       - 9000
     # 磁區對映
     volumes:
-      - "./code_data:/var/www/html"
+      - "${CODE_PATH}:/var/www/html"
     # 網路設定
     networks:
       - database

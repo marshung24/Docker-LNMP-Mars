@@ -39,10 +39,12 @@ Docker LNMP 環境
   - `docker exec -ti dev_php sh`
 
 ## 瀏覽
-- 前往[http://localhost](http://localhost)
+- 主程式: [http://localhost](http://localhost)
+- PHPMyAdmin: [http://localhost:8080](http://localhost:8080)
+- PHPRedisAdmin: [http://localhost:8081](http://localhost:8081)
 
 ## 開發
-- 網頁程式根目錄在 ./code_data ，將要執行的網頁放在這邊即可
+- 網頁程式根目錄在 ./code_data ，可調整 .env 程式碼路徑 CODE_PATH 變數，以變更連結的程式碼路徑
 
 
 
