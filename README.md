@@ -3,6 +3,7 @@ Docker LNMP 環境
 
 > - Author: MarsHung
 > - Date: 2021-12-25
+> - 封存，將由 [marshung24/docker-local-dev-devcontainer](https://github.com/marshung24/docker-local-dev-devcontainer) 取代
 
 ## 說明
 - 建立LNMP開發環境範本-MacOS版，供開發&測試應用
