@@ -4,7 +4,9 @@
 # - 伺服器： Nginx, PHP7.4, MySQL5.7, Redis, PHPMyAdmin, PHPRedisAdmin
 #   - 主程式: http://localhost
 #   - PHPMyAdmin: http://localhost:8080
-#   - PHPRedisAdmin: http://localhost:8081
+#   - PHPMyAdmin: http://localhost:8081
+#   - PHPRedisAdmin: http://localhost:5540
+#   - PHPRedisAdmin: http://localhost:8082
 # - 使用 .env 環境變數檔
 #   - 可調整 程式碼路徑 CODE_PATH 變數，以變更連結的程式碼路徑
 # 
@@ -80,12 +82,25 @@ services:
       MYSQL_USER: "${DB_USERNAME}"
       MYSQL_PASSWORD: "${DB_PASSWORD}"
 
+  # Adminer伺服器建構
+  dev_adminer:
+    container_name: dev_adminer
+    image: adminer
+    ports:
+      - "8080:8080"
+    networks:
+      - database
+    depends_on:
+      - dev_mysql
+    environment:
+      ADMINER_DEFAULT_SERVER: dev_mysql
+
   # PhpMyAdmin伺服器建構
   dev_phpmyadmin:
     container_name: dev_phpmyadmin
     image: "phpmyadmin/phpmyadmin"
     ports:
-      - "8080:80"
+      - "8081:80"
     networks:
       - database
     depends_on:
@@ -108,6 +123,21 @@ services:
       - "redis_data:/data"
     command: "redis-server --appendonly yes "
 
+  # RedisInsight 伺服器
+  dev_redisinsight:
+    container_name: dev_redisinsight
+    image: redislabs/redisinsight:latest
+    restart: always
+    # RedisInsight的Web UI
+    ports:
+      - "5540:5540"
+    volumes:
+      - redisinsight_data:/db
+    networks:
+      - database
+    depends_on:
+      - dev_redis  # 確保 Redis 先啟動
+
   # PhpRedisAdmin伺服器建構
   dev_phpredisadmin:
     container_name: dev_phpredisadmin
@@ -115,20 +145,19 @@ services:
     expose:
       - "80"
     ports:
-      - "8081:80"
+      - "8082:80"
     networks:
       - database
     environment:
-      - "REDIS_1_HOST=redis"
-      - "REDIS_1_NAME=redis"
+      REDIS_1_HOST: dev_redis
+      REDIS_1_NAME: dev_redis
     depends_on:
       - dev_redis
-    links:
-      - "dev_redis:redis"
 
 # Volumn設定
 volumes:
   sql_data:
+  redisinsight_data:
   redis_data:
 
 # Network設定
